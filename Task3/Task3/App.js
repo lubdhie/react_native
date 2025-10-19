@@ -10,13 +10,14 @@ import { FavouritesProvider } from "./context/FavouritesContext";
 import Home from "./screens/Home";
 import Login from "./screens/Login";
 import Signup from "./screens/Signup";
-import Profile from "./screens/Profile";
-import EditProfile from "./screens/EditProfile";
+import ProfileScreen from "./screens/Profile";
+import EditProfileScreen from "./screens/EditProfile";
 import Events from "./screens/Events";
 import Favourites from "./screens/Favourites";
 
 const AuthStack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+
 
 function AuthStackScreen() {
   return (
@@ -46,10 +47,10 @@ function MainTabs() {
       })}
     >
       <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Profile" component={Profile} />
+      <Tab.Screen name="Profile" component={ProfileScreen} />
       <Tab.Screen name="Events" component={Events} />
       <Tab.Screen name="Favourites" component={Favourites} />
-      <Tab.Screen name="EditProfile" component={EditProfile} />
+      <Tab.Screen name="EditProfile" component={EditProfileScreen} />
     </Tab.Navigator>
   );
 }

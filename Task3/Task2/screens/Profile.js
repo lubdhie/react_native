@@ -1,9 +1,8 @@
 import React, { useContext } from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
 import { UserContext } from "../context/UserContext";
-import EditProfile from "./EditProfile";
 
-export default function Profile({ navigation }) {
+export default function Edprofile({ navigation }) {
   const { user } = useContext(UserContext);
 
   return (
@@ -43,7 +42,7 @@ export default function Profile({ navigation }) {
 
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate("EditProfileScreen")}
+        onPress={() => navigation.navigate("EditProfile")}
       >
         <Text style={styles.buttonText}>Edit Profile</Text>
       </TouchableOpacity>
@@ -81,18 +80,9 @@ const styles = StyleSheet.create({
     elevation: 2,
     marginBottom: 16,
   },
-  cardTitle: { 
-    fontWeight: "600", 
-    fontSize: 16, 
-    marginBottom: 8 },
-  label: { 
-    fontSize: 14, 
-    fontWeight: "600", 
-    marginTop: 8, 
-    color: "#333" 
-  },
-  value: {
-     fontSize: 14, marginTop: 4, color: "#555" },
+  cardTitle: { fontWeight: "600", fontSize: 16, marginBottom: 8 },
+  label: { fontSize: 14, fontWeight: "600", marginTop: 8, color: "#333" },
+  value: { fontSize: 14, marginTop: 4, color: "#555" },
   favoriteItem: { fontSize: 14, marginVertical: 2, color: "#444" },
   emptyFav: { color: "#aaa", fontStyle: "italic", marginTop: 4 },
   button: {

@@ -10,7 +10,7 @@ export default function Home({ navigation }) {
 
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate("Login")}
+        onPress={() => navigation.getParent().navigate("Login")}
       >
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>

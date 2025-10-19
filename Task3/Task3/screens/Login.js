@@ -3,7 +3,7 @@ import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
 import { UserContext } from '../context/UserContext';
 
 export default function Login({ navigation }) {
-  const { Login } = useContext(UserContext);
+  const { login } = useContext(UserContext);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -14,7 +14,7 @@ export default function Login({ navigation }) {
       return;
     }
 
-    const success = Login(email, password);
+    const success = login(email, password);
     if (!success) {
       Alert.alert('Error', 'Invalid credentials');
     }
@@ -27,9 +27,7 @@ export default function Login({ navigation }) {
       <TextInput placeholder="Password" secureTextEntry style={styles.input} onChangeText={setPassword} />
       <Button title="Login" onPress={handleLogin} />
       <View style={{ marginTop: 10 }}>
-        <Button title="Don't have an account? Signup" 
-        onPress={() => navigation.navigate('Signup')} 
-        />
+        <Button title="Don't have an account? Signup" onPress={() => navigation.getParent().navigate('Signup')} />
   
 
       </View>

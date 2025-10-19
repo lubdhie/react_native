@@ -3,7 +3,7 @@ import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView } from "rea
 import { UserContext } from "../context/UserContext";
 import EditProfile from "./EditProfile";
 
-export default function Profile({ navigation }) {
+export default function Edprofile({ navigation }) {
   const { user } = useContext(UserContext);
 
   return (

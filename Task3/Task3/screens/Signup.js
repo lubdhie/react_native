@@ -45,7 +45,7 @@ export default function Signup() {
       return;
     }
 
-    const success = Signup({ name, email, password, phone, photo });
+    const success = signup({ name, email, password, phone, photo });
     if (!success) {
       return; 
     }
