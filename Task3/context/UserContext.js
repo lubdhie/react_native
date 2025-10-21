@@ -6,7 +6,7 @@ export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true); // loading state on app start
+  const [loading, setLoading] = useState(null); // loading state on app start
 
   // Check if user is already logged in (persistent login)
   useEffect(() => {
