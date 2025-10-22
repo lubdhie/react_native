@@ -384,8 +384,6 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
-
-
 import { UserContext, UserProvider } from "./context/UserContext";
 import { FavouritesProvider } from "./context/FavouritesContext";
 
@@ -395,6 +393,7 @@ import Signup from "./screens/Signup";
 import Events from "./screens/Events";
 import EditProfile from "./screens/EditProfile";
 import Favourites from "./screens/Favourites";
+import ChatBot from "./screens/ChatBot";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -412,6 +411,9 @@ function MainTabs() {
           if (route.name === "Events") iconPath = require("./assets/home.png");
           else if (route.name === "EditProfile") iconPath = require("./assets/user.png");
           else if (route.name === "Favourites") iconPath = require("./assets/wishlist.png");
+         else if (route.name === "ChatBot") iconPath = require("./assets/user.png");
+         if (!iconPath) return null;
+
 
           return (
             <Image
@@ -425,6 +427,7 @@ function MainTabs() {
       <Tab.Screen name="Events" component={Events} />
       <Tab.Screen name="Favourites" component={Favourites} />
       <Tab.Screen name="EditProfile" component={EditProfile} />
+      <Tab.Screen name="ChatBot" component={ChatBot}/>
     </Tab.Navigator>
   );
 }
@@ -447,7 +450,7 @@ function RootNavigator() {
         {!user ? (
           <>
             <Stack.Screen name="Signup" component={Signup} />
-            {/* <Stack.Screen name="Login" component={Login} /> */}
+            <Stack.Screen name="Login" component={Login} />
           </>
         ) : (
           <Stack.Screen name="MainTabs" component={MainTabs} />
