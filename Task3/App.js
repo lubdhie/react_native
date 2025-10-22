@@ -231,28 +231,175 @@
 // }
 
 
+// import React, { useContext } from "react";
+// import { Text,Image, ActivityIndicator, View } from "react-native";
+// import { NavigationContainer } from "@react-navigation/native";
+// import { createNativeStackNavigator } from "@react-navigation/native-stack";
+// import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
+// import { UserContext ,UserProvider } from "./context/UserContext";
+// import { FavouritesProvider } from "./context/FavouritesContext";
+
+
+// import Home from "./screens/Home";
+// import Login from "./screens/Login";
+// import Signup from "./screens/Signup";
+// import Events from "./screens/Events";
+// //import Profile from "./screens/Profile";
+// import EditProfile from "./screens/EditProfile";
+// import Favourites from "./screens/Favourites";
+
+// const Stack = createNativeStackNavigator();
+// const Tab = createBottomTabNavigator();
+
+// // ---------- Bottom Tabs for logged-in users ----------
+// function MainTabs() {
+//   return (
+//     <Tab.Navigator
+//       screenOptions={({ route }) => ({
+//         headerShown: false,
+//         tabBarActiveTintColor: "#007AFF",
+//         tabBarInactiveTintColor: "gray",
+//         tabBarIcon: ({ color, size }) => {
+//           let iconPath;
+//           if (route.name === "Events") iconPath = require("./assets/home.png");
+//           else if (route.name === "EditProfile") iconPath = require("./assets/user.png");
+//           else if (route.name === "Favourites") iconPath = require("./assets/wishlist.png");
+
+//           return (
+//             <Image
+//               source={iconPath}
+//               style={{ width: size, height: size, tintColor: color }}
+//             />
+//           );
+//         },
+//       })}
+//     >
+//       <Tab.Screen name="Events" component={Events} />
+//       <Tab.Screen name="Favourites" component={Favourites} />
+//       <Tab.Screen name="EditProfile" component={EditProfile} />
+//     </Tab.Navigator>
+//   );
+// }
+
+// // ---------- Authentication flow ----------
+// // function AuthStack() {
+// //     return (
+// //     <Stack.Navigator>
+// //       {user ? (
+// //         <Stack.Screen name="Home" component={Home} />
+// //       ) : (
+// //         <>
+// //           <Stack.Screen name="Home" component={Home} />
+// //           <Stack.Screen name="Login" component={Login} />
+// //           <Stack.Screen name="Signup" component={Signup} />
+// //         </>
+// //       )}
+// //     </Stack.Navigator>
+// //   );
+//   // return (
+//   //   <Stack.Navigator screenOptions={{ headerShown: false }}>
+//   //     <Stack.Screen name="Home" component={Home} />
+//   //     <Stack.Screen name="Login" component={Login} />
+//   //     <Stack.Screen name="Signup" component={Signup} />
+//   //   </Stack.Navigator>
+//   // );
+// }
+
+// // ---------- Root Navigator ----------
+// function RootNavigator() {
+//   const { user, loading } = useContext(UserContext);
+
+//   if (loading) {
+//     return (
+//       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+//         <ActivityIndicator size="large" color="#007AFF" />
+//       </View>
+//     );
+//   }
+
+// //   return (
+// //     <NavigationContainer>
+// //       {user ? <MainTabs /> : <AuthStack />}
+// //     </NavigationContainer>
+// //   );
+// // }
+
+
+
+ 
+// //   return (
+// //     <NavigationContainer>
+// //       <Stack.Navigator screenOptions={{ headerShown: false }}>
+// //         <Stack.Screen name="Home" component={Home} />
+// //         {!user || !user.name ? (
+// //           <>
+// //             <Stack.Screen name="Login" component={Login} />
+// //             <Stack.Screen name="Signup" component={Signup} />
+// //           </>
+// //         ) : (
+// //           <Stack.Screen name="MainTabs" component={MainTabs} />
+// //         )}
+// //       </Stack.Navigator>
+// //     </NavigationContainer>
+// //   );
+// // }
+
+
+
+// // // ---------- App Root ----------
+// // export default function App() {
+// //   return (
+// //     <UserProvider>
+// //       <FavouritesProvider>
+// //        {/* < NavigationContainer> */}
+// //         <RootNavigator />
+// //         <NavigationContainer/>
+// //       </FavouritesProvider>
+// //     </UserProvider>
+// //   );
+// // }
+
+// export default function App() {
+//   return (
+//     <UserProvider>
+//       <FavoritesProvider>
+//         <NavigationContainer>
+//           <Stack.Navigator initialRouteName="Signup">
+//             <Stack.Screen name="Signup" component={Signup} />
+//             <Stack.Screen name="Login" component={Login} />
+//             <Stack.Screen name="HomeTabs" component={Home} options={{headerShown: false}} />
+//           </Stack.Navigator>
+//         </NavigationContainer>
+//       </FavoritesProvider>
+//     </UserProvider>
+//   );
+// }
+
 import React, { useContext } from "react";
-import { Text,Image, ActivityIndicator, View } from "react-native";
+import { Text, Image, ActivityIndicator, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
-import { UserContext ,UserProvider } from "./context/UserContext";
+
+
+import { UserContext, UserProvider } from "./context/UserContext";
 import { FavouritesProvider } from "./context/FavouritesContext";
 
-
-import Home from "./screens/Home";
+//import Home from "./screens/Home";
 import Login from "./screens/Login";
 import Signup from "./screens/Signup";
 import Events from "./screens/Events";
-//import Profile from "./screens/Profile";
 import EditProfile from "./screens/EditProfile";
 import Favourites from "./screens/Favourites";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-// ---------- Bottom Tabs for logged-in users ----------
+// ---------- Bottom Tabs ----------
 function MainTabs() {
   return (
     <Tab.Navigator
@@ -282,30 +429,6 @@ function MainTabs() {
   );
 }
 
-// ---------- Authentication flow ----------
-function AuthStack() {
-    return (
-    <Stack.Navigator>
-      {user ? (
-        <Stack.Screen name="Home" component={Home} />
-      ) : (
-        <>
-          <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="Signup" component={Signup} />
-        </>
-      )}
-    </Stack.Navigator>
-  );
-  // return (
-  //   <Stack.Navigator screenOptions={{ headerShown: false }}>
-  //     <Stack.Screen name="Home" component={Home} />
-  //     <Stack.Screen name="Login" component={Login} />
-  //     <Stack.Screen name="Signup" component={Signup} />
-  //   </Stack.Navigator>
-  // );
-}
-
 // ---------- Root Navigator ----------
 function RootNavigator() {
   const { user, loading } = useContext(UserContext);
@@ -318,24 +441,13 @@ function RootNavigator() {
     );
   }
 
-//   return (
-//     <NavigationContainer>
-//       {user ? <MainTabs /> : <AuthStack />}
-//     </NavigationContainer>
-//   );
-// }
-
-
-
- 
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Home" component={Home} />
-        {!user || !user.name ? (
+        {!user ? (
           <>
-            <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="Signup" component={Signup} />
+            {/* <Stack.Screen name="Login" component={Login} /> */}
           </>
         ) : (
           <Stack.Screen name="MainTabs" component={MainTabs} />
@@ -345,17 +457,17 @@ function RootNavigator() {
   );
 }
 
-
-
 // ---------- App Root ----------
 export default function App() {
   return (
+   <SafeAreaProvider>
     <UserProvider>
       <FavouritesProvider>
-       {/* < NavigationContainer> */}
-        <RootNavigator />
-        {/* <NavigationContainer/> */}
+                <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
+          <RootNavigator />
+        </SafeAreaView>
       </FavouritesProvider>
     </UserProvider>
+    </SafeAreaProvider>
   );
 }
