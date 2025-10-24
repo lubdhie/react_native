@@ -48,7 +48,7 @@ export default function Signup({ navigation }) {
 const success = await signup(name, email, password);
   if (success) {
     Alert.alert("Success", "Account created! Please log in.");
-    navigation.replace("Login"); // ✅ goes to login after signup
+    navigation.navigate("Login"); // ✅ goes to login after signup
   }
 }
 
@@ -113,3 +113,4 @@ const styles = StyleSheet.create({
   avatar: { width: 120, height: 120, borderRadius: 60, marginVertical: 10 },
   placeholder: { alignItems: "center", justifyContent: "center", backgroundColor: "#eee" },
 });
+
