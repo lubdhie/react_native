@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { View, Text, TextInput, Button, StyleSheet, Alert } from "react-native";
+import { View, Text, TextInput, Button, StyleSheet, Alert ,KeyboardAvoidingView} from "react-native";
 import { UserContext } from "../context/UserContext";
 
 export default function Login({ navigation }) {
@@ -18,13 +18,13 @@ export default function Login({ navigation }) {
     if (!success) {
       Alert.alert("Error", "Invalid credentials");
     } else {
-      navigation.replace("MainTabs"); // ✅ go to MainTabs after login
+      navigation.replace("MainTabs"); 
     }
     // Navigation is automatic now since user context updates
   };
-
+ 
   return (
-    <View style={styles.container}>
+   <KeyboardAvoidingView  behavior="padding" keyboardVerticalOffset={100} style={styles.container}>
       <Text style={styles.title}>Login</Text>
       <TextInput placeholder="Email" style={styles.input} onChangeText={setEmail} />
       <TextInput
@@ -40,7 +40,7 @@ export default function Login({ navigation }) {
           onPress={() => navigation.navigate("Signup")}
         />
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 

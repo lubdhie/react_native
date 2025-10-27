@@ -13,10 +13,12 @@ import { FavouritesProvider } from "./context/FavouritesContext";
 import Login from "./screens/Login";
 import Signup from "./screens/Signup";
 import Events from "./screens/Events";
+import Profile from "./screens/Profile";
 import EditProfile from "./screens/EditProfile";
 import Favourites from "./screens/Favourites";
 //import ChatBot from "./screens/ChatBot";
 import ChatBot from "./screens/ChatBot";
+import { StackScreen } from "react-native-screens";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -49,7 +51,7 @@ function MainTabs() {
     >
       <Tab.Screen name="Events" component={Events} />
       <Tab.Screen name="Favourites" component={Favourites} />
-      <Tab.Screen name="EditProfile" component={EditProfile} />
+      <Tab.Screen name="Profile" component={Profile} />
       <Tab.Screen name="ChatBot" component={ChatBot}/>
     </Tab.Navigator>
   );
@@ -83,6 +85,7 @@ function RootNavigator() {
   <Stack.Screen name="Login" component={Login} />
   <Stack.Screen name="Signup" component={Signup} />
   <Stack.Screen name="MainTabs" component={MainTabs} />
+  <Stack.Screen name="EditProfile" component={EditProfile}/>
 </Stack.Navigator>
 
     </NavigationContainer>

@@ -1,6 +1,6 @@
 
 import React, { useState, useContext, useEffect } from "react";
-import { View,Text,TextInput,Button,StyleSheet,Alert,Image,
+import { View,Text,TextInput,Button,StyleSheet,Alert,Image,KeyboardAvoidingView,
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { UserContext } from "../context/UserContext";
@@ -53,7 +53,8 @@ const success = await signup(name, email, password);
 }
 
   return (
-    <View style={styles.container}>
+       <KeyboardAvoidingView  behavior="padding" keyboardVerticalOffset={100} style={styles.container}>
+
       <Text style={styles.title}>Signup</Text>
 
       <View style={{ alignItems: "center" }}>
@@ -96,7 +97,7 @@ const success = await signup(name, email, password);
       />
 
       <Button title="Create Account" onPress={handleSignup} />
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 

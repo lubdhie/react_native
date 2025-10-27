@@ -8,20 +8,23 @@ import {
   FlatList,
   ActivityIndicator,
   StyleSheet,
+  KeyboardAvoidingView,
 } from "react-native";
 import * as Speech from "expo-speech";
 import ChatBubble from "./ChatBubble";
-import {GEMINI_API_KEY} from "@env";
+//import {GEMINI_API_KEY} from "@env";
+
 
 const ChatBot = () => {
   const [chat, setChat] = useState([]);
   const [userInput, setUserInput] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(null)
   const [isSpeaking, setIsSpeaking] = useState(false);
 
   // Do NOT expose API keys in production!
-  const API_KEY = GEMINI_API_KEY;
+  //const API_KEY = GEMINI_API_KEY;
+    const API_KEY = "AIzaSyDoNxrWHmjErXmSg-JsuFGIp0Te2QOv1Tc"
 
   const getGeminiResponse = async (userMessage) => {
     try {
@@ -143,7 +146,9 @@ const ChatBot = () => {
   );
 
   return (
-    <View style={styles.container}>
+     
+     <KeyboardAvoidingView  behavior="padding" keyboardVerticalOffset={100} style={styles.container}>
+
       <Text style={styles.title}> Gemini Chatbot</Text>
 
       <FlatList
@@ -168,9 +173,11 @@ const ChatBot = () => {
 
       {loading && <ActivityIndicator style={styles.loading} color="#007AFF" />}
       {error && <Text style={styles.error}>{error}</Text>}
-    </View>
+    </KeyboardAvoidingView>
+ 
   );
 };
+
 
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 16, backgroundColor: "#f8f8f8" },

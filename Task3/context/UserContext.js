@@ -1,5 +1,4 @@
-
-
+//for image 
 import React, { createContext, useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -9,20 +8,24 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // 🔹 Always start fresh (disable auto-login)
+  // Load saved user from AsyncStorage on app start
   useEffect(() => {
-    const resetUser = async () => {
-      await AsyncStorage.removeItem("user");
-      setUser(null);
-      setLoading(false);
+    const loadUser = async () => {
+      try {
+        const storedUser = await AsyncStorage.getItem("user");
+        if (storedUser) setUser(JSON.parse(storedUser));
+      } catch (e) {
+        console.log("Failed to load user:", e);
+      } finally {
+        setLoading(false);
+      }
     };
-    resetUser();
+    loadUser();
   }, []);
 
-  // ✅ SIGNUP FUNCTION
-  const signup = async (name, email, password) => {
+  const signup = async (name, email, password, photo = null) => {
     try {
-      const newUser = { name, email, password };
+      const newUser = { name, email, password, photo, favorites: [] };
       setUser(newUser);
       await AsyncStorage.setItem("user", JSON.stringify(newUser));
       return true;
@@ -32,7 +35,6 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-  // ✅ LOGIN FUNCTION
   const login = async (email, password) => {
     try {
       const storedUser = await AsyncStorage.getItem("user");
@@ -50,19 +52,95 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-  // ✅ LOGOUT FUNCTION
   const logout = async () => {
     setUser(null);
     await AsyncStorage.removeItem("user");
   };
 
-  // ✅ CONTEXT PROVIDER
+  // ✅ Add this function
+  const updateUser = async (updatedFields) => {
+    try {
+      const updatedUser = { ...user, ...updatedFields };
+      setUser(updatedUser);
+      await AsyncStorage.setItem("user", JSON.stringify(updatedUser));
+    } catch (e) {
+      console.log("Update user error:", e);
+    }
+  };
+
   return (
-    <UserContext.Provider value={{ user, login, signup, logout, loading }}>
+    <UserContext.Provider
+      value={{ user, setUser, login, signup, logout, updateUser, loading }}
+    >
       {children}
     </UserContext.Provider>
   );
 };
+
+
+// import React, { createContext, useState, useEffect } from "react";
+// import AsyncStorage from "@react-native-async-storage/async-storage";
+
+// export const UserContext = createContext();
+
+// export const UserProvider = ({ children }) => {
+//   const [user, setUser] = useState(null);
+//   const [loading, setLoading] = useState(true);
+
+//   // 🔹 Always start fresh (disable auto-login)
+//   useEffect(() => {
+//     const resetUser = async () => {
+//       await AsyncStorage.removeItem("user");
+//       setUser(null);
+//       setLoading(false);
+//     };
+//     resetUser();
+//   }, []);
+
+//   // ✅ SIGNUP FUNCTION
+//   const signup = async (name, email, password) => {
+//     try {
+//       const newUser = { name, email, password };
+//       setUser(newUser);
+//       await AsyncStorage.setItem("user", JSON.stringify(newUser));
+//       return true;
+//     } catch (e) {
+//       console.log("Signup error:", e);
+//       return false;
+//     }
+//   };
+
+//   // ✅ LOGIN FUNCTION
+//   const login = async (email, password) => {
+//     try {
+//       const storedUser = await AsyncStorage.getItem("user");
+//       if (!storedUser) return false;
+
+//       const userData = JSON.parse(storedUser);
+//       if (userData.email === email && userData.password === password) {
+//         setUser(userData);
+//         return true;
+//       }
+//       return false;
+//     } catch (e) {
+//       console.log("Login error:", e);
+//       return false;
+//     }
+//   };
+
+//   // ✅ LOGOUT FUNCTION
+//   const logout = async () => {
+//     setUser(null);
+//     await AsyncStorage.removeItem("user");
+//   };
+
+//   // ✅ CONTEXT PROVIDER
+//   return (
+//     <UserContext.Provider value={{ user, login, signup, logout, loading }}>
+//       {children}
+//     </UserContext.Provider>
+//   );
+// };
 
 
 
